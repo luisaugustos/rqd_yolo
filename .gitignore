@@ -53,3 +53,4 @@ results/mlruns/
 # Secrets
 .env
 *.key
+data/roboflow/
