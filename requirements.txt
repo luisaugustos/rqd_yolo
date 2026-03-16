@@ -1,0 +1,16 @@
+numpy>=1.26
+opencv-python-headless>=4.9
+pillow>=10.3
+pydantic>=2.7
+pyyaml>=6.0
+torch>=2.3
+torchvision>=0.18
+ultralytics>=8.2
+mlflow>=2.14
+click>=8.1
+rich>=13.7
+scikit-image>=0.23
+scipy>=1.13
+pandas>=2.2
+tqdm>=4.66
+psutil>=5.9

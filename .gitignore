@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.conda/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Test / coverage
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# MLflow
+mlruns/
+
+# Model weights (large binaries — use DVC or explicit paths)
+*.pt
+*.pth
+*.onnx
+*.engine
+
+# Raw and processed data (use DVC)
+data/raw/
+data/interim/
+data/processed/
+
+# Results (generated; not committed)
+results/runs/
+results/weights/
+results/predictions/
+results/artifacts/
+results/mlruns/
+
+# Secrets
+.env
+*.key

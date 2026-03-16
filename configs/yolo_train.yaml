@@ -1,0 +1,38 @@
+# YOLOv11 / YOLOv12 training configuration
+
+model:
+  backend: yolov12       # yolov11 | yolov12
+  variant: m             # n | s | m | l | x
+  weights: yolov12m.pt   # pretrained checkpoint; path or ultralytics model name
+  freeze_backbone: false  # freeze backbone for low-data regimes
+
+training:
+  epochs: 100
+  batch_size: 16
+  imgsz: 640
+  device: auto           # auto | cpu | 0 | 0,1
+  workers: 8
+  amp: true              # automatic mixed precision
+  optimizer: AdamW
+  lr0: 0.001
+  lrf: 0.01
+  momentum: 0.937
+  weight_decay: 0.0005
+  warmup_epochs: 3
+  warmup_momentum: 0.8
+  warmup_bias_lr: 0.1
+  patience: 50           # early stopping patience (epochs)
+  save_period: 10        # save checkpoint every N epochs
+  project: results/runs
+  name: yolov12m_run
+
+inference:
+  conf_thresh: 0.25
+  iou_thresh: 0.45        # NMS IoU threshold
+  max_det: 300            # max detections per image
+  imgsz: 640
+  half: false             # FP16 inference
+
+output:
+  weights_dir: results/weights
+  predictions_dir: results/predictions

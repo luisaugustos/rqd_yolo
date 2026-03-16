@@ -1,0 +1,31 @@
+# Segmentation backend configuration
+
+backend: none           # none | sam2 | mask_rcnn | unet
+# "none" uses bounding box fallback (BBoxFallbackBackend)
+
+sam2:
+  model_cfg: sam2_hiera_b+.yaml
+  weights: sam2_hiera_base_plus.pt
+  device: auto
+  multimask_output: true     # generate 3 mask candidates; select highest score
+  points_per_side: null      # not used in box-prompt mode
+
+mask_rcnn:
+  weights: maskrcnn_resnet50_fpn_v2   # or path to fine-tuned checkpoint
+  device: auto
+  conf_thresh: 0.5
+  nms_iou_thresh: 0.5
+  mask_threshold: 0.5        # logit threshold for binary mask
+  imgsz_min: 800
+  imgsz_max: 1333
+
+unet:
+  weights: null              # path to trained U-Net checkpoint
+  device: auto
+  imgsz: 512
+  num_classes: 3             # background, intact_fragment, fracture
+  sliding_window:
+    enabled: true
+    tile_size: 512
+    stride: 384
+    blend: gaussian           # linear | gaussian
