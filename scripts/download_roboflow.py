@@ -31,13 +31,15 @@ KNOWN_DATASETS: dict[str, dict] = {
         "workspace": "tfm-w79wc",
         "project": "rock-quality",
         "default_version": 1,
+        "default_format": "yolov8",
         "description": "Rock Quality Designation (RQD) drill core detection",
     },
     "rock-core-box": {
         "workspace": "maskrcnn-rock-core",
         "project": "rock-core-box",
         "default_version": 1,
-        "description": "Rock core box detection and segmentation",
+        "default_format": "coco-segmentation",
+        "description": "Rock core box semantic segmentation",
     },
 }
 
@@ -79,9 +81,9 @@ def main() -> None:
     )
     parser.add_argument(
         "--format",
-        default="yolov8",
-        choices=["yolov8", "yolov5", "coco"],
-        help="Export format (default: yolov8)",
+        default=None,
+        choices=["yolov8", "yolov5", "coco", "coco-segmentation", "png-mask-semantic"],
+        help="Export format (default: yolov8 for detection, coco-segmentation for segmentation)",
     )
     parser.add_argument(
         "--output",
@@ -110,6 +112,7 @@ def main() -> None:
     workspace = args.workspace or meta["workspace"]
     project_slug = args.project or meta["project"]
     version_num = args.version or meta["default_version"]
+    fmt = args.format or meta["default_format"]
 
     output_dir = Path(args.output)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -118,7 +121,7 @@ def main() -> None:
     print(f"Dataset  : {args.dataset}")
     print(f"Workspace: {workspace}")
     print(f"Project  : {project_slug}  v{version_num}")
-    print(f"Format   : {args.format}")
+    print(f"Format   : {fmt}")
     print(f"Output   : {location}")
     print()
 
@@ -128,7 +131,7 @@ def main() -> None:
 
     print(f"Downloading version {version_num} …")
     dataset = project.version(version_num).download(
-        model_format=args.format,
+        model_format=fmt,
         location=str(location),
         overwrite=False,
     )
