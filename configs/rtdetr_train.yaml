@@ -1,0 +1,36 @@
+# RT-DETRv2 training configuration
+
+model:
+  backend: rtdetrv2
+  variant: s             # s | m | l
+  weights: rtdetrv2_s.pt # pretrained checkpoint
+  num_queries: 300       # number of decoder queries
+  decoder_layers: 6
+
+training:
+  epochs: 72
+  batch_size: 8
+  imgsz: 640
+  device: auto
+  workers: 8
+  amp: true
+  optimizer: AdamW
+  lr0: 0.0001
+  lrf: 0.01
+  weight_decay: 0.0001
+  warmup_epochs: 5
+  grad_accumulate: 2     # gradient accumulation steps (compensates for small batch)
+  patience: 30
+  save_period: 10
+  project: results/runs
+  name: rtdetrv2_s_run
+
+inference:
+  conf_thresh: 0.3
+  max_det: 300
+  imgsz: 640
+  half: false
+
+output:
+  weights_dir: results/weights
+  predictions_dir: results/predictions

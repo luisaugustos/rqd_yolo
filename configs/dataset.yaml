@@ -1,0 +1,79 @@
+# Dataset configuration
+# All paths are relative to the repository root unless they start with /
+
+paths:
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed
+  annotations_yolo: data/annotations/yolo
+  annotations_coco: data/annotations/coco
+  splits: data/annotations/splits
+  measurements: data/annotations/measurements
+
+split_file: data/annotations/splits/split_v1.yaml
+
+# Class definitions (must match annotation files)
+labels:
+  - id: 0
+    name: fracture
+    supercategory: discontinuity
+  - id: 1
+    name: intact_fragment
+    supercategory: fragment
+  - id: 2
+    name: tray_row
+    supercategory: structure
+  - id: 3
+    name: scale_marker
+    supercategory: reference
+  - id: 4
+    name: natural_fracture
+    supercategory: discontinuity
+    optional: true
+  - id: 5
+    name: mechanical_fracture
+    supercategory: discontinuity
+    optional: true
+  - id: 6
+    name: uncertain_fracture
+    supercategory: discontinuity
+    optional: true
+
+# Augmentation policy (applied during training only)
+augmentation:
+  enabled: true
+  seed: 42
+  horizontal_flip:
+    p: 0.5
+  brightness_contrast:
+    brightness_limit: 0.2
+    contrast_limit: 0.2
+    p: 0.5
+  hue_saturation:
+    hue_shift_limit: 10
+    sat_shift_limit: 20
+    p: 0.3
+  random_crop:
+    min_area_ratio: 0.8
+    p: 0.3
+  gaussian_blur:
+    blur_limit: [3, 7]
+    sigma_limit: [0.1, 2.0]
+    p: 0.2
+  jpeg_compression:
+    quality_lower: 60
+    quality_upper: 100
+    p: 0.2
+  vertical_flip:
+    p: 0.0   # disabled — depth direction must be preserved
+  random_rotate:
+    limit: 5
+    p: 0.2
+  mosaic:
+    p: 0.0   # opt-in only
+
+# Data quality validation
+validation:
+  min_width: 1024
+  min_height: 768
+  fail_on_error: true   # errors halt processing; warnings are logged

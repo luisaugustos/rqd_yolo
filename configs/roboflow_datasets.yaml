@@ -1,0 +1,36 @@
+# Roboflow dataset registry for RQD training
+# Each entry maps a short name to its Roboflow coordinates and local paths.
+# Download with: python scripts/download_roboflow.py --dataset <name> --api-key <KEY>
+# Train with:    python scripts/train_roboflow.py --dataset <name>
+
+datasets:
+
+  rock-quality:
+    workspace: tfm-w79wc
+    project: rock-quality
+    default_version: 1
+    description: >
+      Rock Quality Designation detection dataset.
+      Contains drill core box images annotated for RQD estimation.
+    url: https://universe.roboflow.com/tfm-w79wc/rock-quality
+    local_path: data/roboflow/rock-quality-1
+    data_yaml: data/roboflow/rock-quality-1/data.yaml
+
+  rock-core-box:
+    workspace: maskrcnn-rock-core
+    project: rock-core-box
+    default_version: 1
+    description: >
+      Rock core box detection and segmentation dataset.
+      Mask R-CNN style annotations for core box tray detection.
+    url: https://universe.roboflow.com/maskrcnn-rock-core/rock-core-box
+    local_path: data/roboflow/rock-core-box-1
+    data_yaml: data/roboflow/rock-core-box-1/data.yaml
+
+# Training defaults applied on top of configs/yolo_train.yaml
+training_defaults:
+  model: yolov8m.pt      # start from COCO-pretrained YOLOv8m
+  epochs: 100
+  imgsz: 640
+  batch: 16
+  patience: 30           # tighter early stopping for small datasets

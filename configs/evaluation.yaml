@@ -1,0 +1,26 @@
+# Evaluation configuration
+
+split: test                  # train | val | test
+
+detection:
+  iou_thresholds: [0.5, 0.75]   # IoU thresholds to report mAP at
+  conf_threshold: 0.25
+  nms_iou_threshold: 0.45
+  report_per_class: true
+
+segmentation:
+  iou_threshold: 0.5
+  report_per_class: true
+
+measurement:
+  report_mae: true
+  report_rmse: true
+
+rqd:
+  report_per_image: true
+  report_row_level: false    # row-level comparison requires row-level GT
+
+output:
+  reports_dir: results/reports
+  figures_dir: results/figures
+  formats: [markdown, csv, json]

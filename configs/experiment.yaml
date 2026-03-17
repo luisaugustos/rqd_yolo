@@ -1,0 +1,33 @@
+# Experiment configuration
+
+experiment:
+  name: rqd_baseline
+  seed: 42
+  deterministic_eval: true   # eliminates all stochastic operations during eval
+
+tracking:
+  backend: mlflow            # mlflow | local
+  tracking_uri: results/mlruns
+  artifact_uri: results/artifacts
+
+hardware:
+  device: auto               # auto | cpu | cuda | cuda:0
+  amp: true                  # automatic mixed precision (GPU only)
+  deterministic: false       # torch.use_deterministic_algorithms (slows training)
+
+logging:
+  level: INFO                # DEBUG | INFO | WARNING | ERROR
+  format: text               # text | json
+  file: null                 # path to log file; null = stdout only
+
+paths:
+  output_root: results
+  weights_dir: results/weights
+  predictions_dir: results/predictions
+  reports_dir: results/reports
+
+# References to sub-configs (loaded by the pipeline)
+dataset_config: configs/dataset.yaml
+detection_config: configs/yolo_train.yaml
+segmentation_config: configs/segmentation.yaml
+evaluation_config: configs/evaluation.yaml
