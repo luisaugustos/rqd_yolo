@@ -1,0 +1,57 @@
+# Roboflow rock-quality dataset configuration
+
+paths:
+  raw: data/roboflow/rock-quality-1
+  interim: data/interim
+  processed: data/processed
+  annotations_yolo: data/roboflow/rock-quality-1
+  annotations_coco: data/annotations/coco
+  splits: data/roboflow/rock-quality-1
+  measurements: data/annotations/measurements
+
+split_file: data/roboflow/rock-quality-1/data.yaml
+
+# Class definitions from Roboflow rock-quality dataset
+labels:
+  - id: 0
+    name: fractures
+    supercategory: discontinuity
+
+# Augmentation policy (applied during training only)
+augmentation:
+  enabled: true
+  seed: 42
+  horizontal_flip:
+    p: 0.5
+  brightness_contrast:
+    brightness_limit: 0.2
+    contrast_limit: 0.2
+    p: 0.5
+  hue_saturation:
+    hue_shift_limit: 10
+    sat_shift_limit: 20
+    p: 0.3
+  random_crop:
+    min_area_ratio: 0.8
+    p: 0.3
+  gaussian_blur:
+    blur_limit: [3, 7]
+    sigma_limit: [0.1, 2.0]
+    p: 0.2
+  jpeg_compression:
+    quality_lower: 60
+    quality_upper: 100
+    p: 0.2
+  vertical_flip:
+    p: 0.0   # disabled — depth direction must be preserved
+  random_rotate:
+    limit: 5
+    p: 0.2
+  mosaic:
+    p: 0.0   # opt-in only
+
+# Data quality validation
+validation:
+  min_width: 640
+  min_height: 480
+  fail_on_error: false   # warnings only for real dataset
