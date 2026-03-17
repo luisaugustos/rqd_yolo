@@ -32,12 +32,30 @@ class YOLOBackend:
         """Load YOLO weights from disk or download from Ultralytics hub.
 
         Args:
-            weights_path: Path to .pt file or model identifier (e.g. 'yolov12m.pt').
+            weights_path: Path to .pt file or model identifier (e.g. 'yolov11n.pt').
             config: Detection config dict. Relevant keys: device, amp.
         """
+        from pathlib import Path
         from ultralytics import YOLO
+        from ultralytics.utils.downloads import attempt_download_asset
 
-        self._model = YOLO(weights_path)
+        model_identifier = weights_path
+        path_obj = Path(weights_path)
+
+        if path_obj.exists():
+            # Local file exists, use as-is
+            model_identifier = str(path_obj.resolve())
+        elif isinstance(weights_path, str) and weights_path.endswith(".pt"):
+            # File doesn't exist locally; try to download from Ultralytics hub
+            logger.debug("Attempting to download model '%s' from Ultralytics hub", weights_path)
+            try:
+                model_identifier = attempt_download_asset(weights_path)
+                logger.debug("Successfully downloaded to '%s'", model_identifier)
+            except Exception as e:
+                logger.warning("Failed to download '%s' from hub: %s", weights_path, e)
+                # Fall through to let YOLO() attempt to handle it
+
+        self._model = YOLO(model_identifier, verbose=False)
         device = config.get("device", "auto")
         if device == "auto":
             device = _auto_device()

@@ -1,0 +1,9 @@
+splits:
+  train:
+    - data/raw/test_image_001.jpg
+    - data/raw/test_image_002.jpg
+    - data/raw/test_image_003.jpg
+  val:
+    - data/raw/test_image_004.jpg
+  test:
+    - data/raw/test_image_005.jpg

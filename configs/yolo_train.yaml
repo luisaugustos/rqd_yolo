@@ -1,9 +1,9 @@
 # YOLOv11 / YOLOv12 training configuration
 
 model:
-  backend: yolov12       # yolov11 | yolov12
-  variant: m             # n | s | m | l | x
-  weights: yolov12m.pt   # pretrained checkpoint; path or ultralytics model name
+  backend: yolov8        # yolov8 | yolov11
+  variant: n             # n | s | m | l | x
+  weights: yolov8n.pt    # pretrained checkpoint; path or ultralytics model name
   freeze_backbone: false  # freeze backbone for low-data regimes
 
 training:
