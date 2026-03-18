@@ -41,6 +41,18 @@ training:
     yolo26n:
       epochs: 50
       batch: 16
+    rtdetrv2_s:
+      epochs: 50
+      batch: 8
+      note: "Real-Time Detection Transformer - Better accuracy"
+    rtdetrv2_m:
+      epochs: 50
+      batch: 4
+      note: "RT-DETRv2 Medium - More accurate, slower inference"
+    rtdetrv2_l:
+      epochs: 50
+      batch: 4
+      note: "RT-DETRv2 Large - Best accuracy, slowest"
 
 # Dataset Configuration
 dataset:

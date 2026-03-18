@@ -1,0 +1,59 @@
+# RT-DETRv2 Training Configuration
+# Real-Time Detection Transformer - Better accuracy than YOLO, slightly slower inference
+
+# Model Architecture
+model: rtdetrv2
+variant: s  # Options: s, m, l (small, medium, large)
+
+# Training Parameters
+epochs: 50
+batch: 8  # Reduced for transformer (memory intensive)
+imgsz: 640
+patience: 20  # Early stopping patience
+
+# Optimizer
+optimizer: sgd
+momentum: 0.937
+weight_decay: 0.0005
+warmup_epochs: 3
+warmup_momentum: 0.8
+lr0: 0.01  # Initial learning rate
+
+# Data Augmentation
+augment: true
+mosaic: 1.0
+mixup: 0.1
+copy_paste: 0.0
+degrees: 10
+translate: 0.1
+scale: 0.5
+flipud: 0.5
+fliplr: 0.5
+perspective: 0.0
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+
+# Training
+device: 0
+workers: 4
+close_mosaic: 10  # Disable mosaic for last 10 epochs
+save: true
+save_period: -1  # Save every epoch
+project: runs/detect/results
+name: rtdetrv2_rock-quality
+exist_ok: true
+pretrained: true
+
+# Validation
+val: true
+split: 0.1
+
+# Inference
+conf: 0.25
+iou: 0.6
+max_det: 300
+
+# RT-DETR Specific
+# These affect inference time/accuracy tradeoff
+nms: true
