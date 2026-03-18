@@ -55,3 +55,17 @@ results/mlruns/
 .env
 *.key
 data/roboflow/
+
+# Temporary files
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+upload_output.log
+
+# Notebooks (optional)
+*.ipynb
+
+# Annotations data (keep only scripts/data/*)
+data/annotated/dataset_hp/
+data/annotated/dataset_hp_v2/

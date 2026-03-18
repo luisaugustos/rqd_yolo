@@ -1,16 +1,28 @@
-numpy>=1.26
-opencv-python-headless>=4.9
-pillow>=10.3
-pydantic>=2.7
+# Core ML Framework
+torch>=2.0.0,<2.2.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# YOLO Detection
+ultralytics>=8.4.23
+opencv-python>=4.8.0
+numpy>=1.24.0
+
+# Data and Config
 pyyaml>=6.0
-torch>=2.3
-torchvision>=0.18
-ultralytics>=8.2
-mlflow>=2.14
-click>=8.1
-rich>=13.7
-scikit-image>=0.23
-scipy>=1.13
-pandas>=2.2
-tqdm>=4.66
-psutil>=5.9
+python-dotenv>=1.0.0
+pandas>=2.0.0
+pillow>=9.5.0
+
+# Roboflow Integration
+roboflow>=1.1.28
+requests>=2.31.0
+
+# Utilities
+tqdm>=4.66.0
+matplotlib>=3.7.0
+
+# Development (optional)
+jupyter>=1.0.0
+tensorboard>=2.14.0
+scikit-learn>=1.3.0

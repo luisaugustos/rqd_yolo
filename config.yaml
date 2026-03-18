@@ -1,0 +1,59 @@
+# Training Configuration
+# Paths can be relative to project root or absolute
+
+paths:
+  # Data paths
+  data_raw: data/raw/dataset_hp
+  data_annotated: data/annotated/dataset_hp_v2
+  data_roboflow: data/roboflow
+
+  # Model and results
+  models: runs/detect/models
+  results: runs/detect/results
+  weights: runs/detect/results/weights
+
+  # Training
+  training_config: configs/yolo_train.yaml
+  dataset_config: data/annotated/dataset_hp_v2/data.yaml
+
+# Roboflow Configuration
+roboflow:
+  workspace: luis-augusto-silva-bq4bv
+  project: rock-quality-eti3s
+  # API key should be in .env file
+
+# Training Parameters
+training:
+  default_model: yolo12n
+  default_epochs: 50
+  default_batch: 16
+  default_device: 0
+
+  # Sequential training configs
+  models:
+    yolo12n:
+      epochs: 50
+      batch: 16
+    yolo12m:
+      epochs: 50
+      batch: 8
+      note: "Reduced batch size for VRAM"
+    yolo26n:
+      epochs: 50
+      batch: 16
+
+# Dataset Configuration
+dataset:
+  name: rock-quality-hp
+  classes: 1
+  class_names:
+    - fractures
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+
+# GPU Configuration
+gpu:
+  enable: true
+  device: 0
+  mixed_precision: true

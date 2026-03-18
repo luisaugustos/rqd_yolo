@@ -182,17 +182,23 @@ def main() -> None:
         exist_ok=False,
     )
 
-    best_weights = Path(project) / name / "weights" / "best.pt"
+    # Use the actual save directory from results object
+    results_dir = Path(results.save_dir)
+    best_weights = results_dir / "weights" / "best.pt"
     print("\nTraining complete!")
     print(f"  Best weights : {best_weights}")
-    print(f"  Results dir  : {Path(project) / name}")
+    print(f"  Results dir  : {results_dir}")
 
     # --- Quick validation ---
     print("\nRunning validation on best weights …")
-    val_model = YOLO(str(best_weights))
-    metrics = val_model.val(data=str(data_yaml), imgsz=imgsz, device=device)
-    print(f"  mAP50      : {metrics.box.map50:.4f}")
-    print(f"  mAP50-95   : {metrics.box.map:.4f}")
+    if best_weights.exists():
+        val_model = YOLO(str(best_weights))
+        metrics = val_model.val(data=str(data_yaml), imgsz=imgsz, device=device)
+        print(f"  mAP50      : {metrics.box.map50:.4f}")
+        print(f"  mAP50-95   : {metrics.box.map:.4f}")
+    else:
+        print(f"  WARNING: Best weights not found at {best_weights}")
+        print(f"  Training completed, but validation skipped.")
 
 
 if __name__ == "__main__":
